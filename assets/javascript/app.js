@@ -17,50 +17,61 @@ let questions = [
         question: 'To which bounty hunter does Darth Vader warn that Han and his friends must not be disintegrated, to which the bounty hunter replies, "As you wish..."?',
         answers: ["Jango Fett", "Bossk", "Boba Fett", "Greedo"], 
         correctAnswer: 2,
+        image: "assets/images/boba.gif"
     },    
     secondQuestion = {        
         question: "In 'Episode I,' what did Yoda discover that Anakin possessed, that may lead him to the Dark Side?",        
         answers: ["Passion", "Hate", "Fear", "Happiness"],        
-        correctAnswer: 2,    },
+        correctAnswer: 2,
+        image: "assets/images/anakin.gif"    
+    },
     thirdtQuestion = {
         question: "In which battle did Obi-Wan Kenobi and Anakin Skywalker fly a rescue mission to save Supreme Chancellor Palpatine, who had been captured by General Grievous during the Separatists' invasion?",
-        answers: ["Battle of Courscant", "Battle of Geonosis", "Battle of Kashyyk", "Battle of Hoth"],
+        answers: ["Battle of Coruscant", "Battle of Geonosis", "Battle of Kashyyk", "Battle of Hoth"],
         correctAnswer: 0,
+        image: "assets/images/cosurcant.gif"
     },
     fourthQuestion = {
         question: 'In "Attack of the Clones", who says "Oh, not good"',
         answers: ["General Grievous", "Obi-Wan Kenobi", "Captain Rex", "Count Dooku"],
         correctAnswer: 1,
+        image: "assets/images/hello_there.gif"
     },
     fifthQuestion = {
         question: 'Throughout the prequel trilogy, Anakin Skywalker is called a two-word title in reference to the Jedi prophesy that he would "bring balance to the force". What is this title?',
         answers: ["The Mighty One", "The One", "The Selected One", "The Chosen One"],
         correctAnswer: 3,
+        image: "assets/images/chosen_one.gif"
     },
     sixthtQuestion = {
         question: "Which planet is Princess Leia from?",
         answers: ["Naboo", "Hoth", "Mustafar", "Alderaan"],
         correctAnswer: 3,
+        image: "assets/images/alderaan.gif"
     },
     seventhQuestion = {
         question: 'When Master Yoda told Anakin Skywalker, "I sense much fear in you", it foreshadowed his future development into which evil Sith Lord? This took place in "Phantom Menace."',
         answers: ["Darth Revan", "Darth Maul", "Darth Vader", "Starkiller"],
         correctAnswer: 2,
+        image: "assets/images/darth_vader.gif"
     },
     eighthQuestion = {
         question: 'In "Episode IV (A New Hope)", who is the first character to talk?',
         answers: ["C-3PO", "R2-D2", "Darth Vader", "Princess Leia"],
         correctAnswer: 0,
+        image: "assets/images/c3.gif"
     },
     ninthQuestion = {
         question: 'What planet, never previously mentioned in a "Star Wars" movie, is invaded by the Trade Federation in "The Phantom Menace"?',
-        answers: ["Courscant", "Naboo", "Alderaan", "Mustafar"],
+        answers: ["Coruscant", "Naboo", "Alderaan", "Mustafar"],
         correctAnswer: 1,
+        image: "assets/images/jar.gif"
     },
     tenthQuestion = {
         question: "The basis for the Empire's army was an army of clones, originally built for the Republic. From what planet did these clones come?",
-        answers: ["Geonosis", "Naboo", "Courscant", "Kamino"],
+        answers: ["Geonosis", "Naboo", "Coruscant", "Kamino"],
         correctAnswer: 3,
+        image: "assets/images/clones.gif"
     }
 ]
 //1. create global variables for correct answers, incorrect answers, unanswered, timer, random question,
@@ -89,7 +100,7 @@ function decrement() {
         userChoice = $('<div>');
         userChoice.addClass('selected-answer');
         $(userChoice).html("<h2 class='text-success text-uppercase'>Correct Answer: " + randomQuestionSelected.answers[randomQuestionSelected.correctAnswer] + "</h2><br>")
-        // userChoice.append('<img src="' + randomQuestionSelected.image + '"');
+        userChoice.append('<img src="' + randomQuestionSelected.image + '"');
         $('.answer').detach();
         $('.answers-area').append(userChoice);
         setTimeout(function() {
@@ -108,6 +119,7 @@ function correctAnswer() {
         gameOver();
     }, 5000)
 }
+
 //7. create function for incorrect answers
 function incorrectAnswer() {
     userChoice = $("<div>");
@@ -133,11 +145,9 @@ function randomQuestion() {
         divAnswers.html(randomQuestionSelected.answers[i]);
         $('.answers-area').append(divAnswers);
     }
-
-    
-
     $(".answer").on('click', function() {
-        if ($(this).attr('id') === randomQuestionSelected.correctAnswer) {
+        var selectedId = $(this).attr('id');
+        if (selectedId == randomQuestionSelected.correctAnswer) {
             clearInterval(selectedInterval);
             correctAnswerTotal++;
             timeLeft++;
@@ -150,9 +160,6 @@ function randomQuestion() {
             incorrectAnswer();
         }
     })
-
-
-    
 }
 //8. create game over function
 function gameOver() {
@@ -183,22 +190,8 @@ function gameOver() {
 
 $('.btn-outline-light').hide();
 questionsArr = questions.slice();
-/*$(".answer").on('click', function() {
-    console.log("it works")
-    if (this.id === randomQuestionSelected.correctAnswer) {
-        clearInterval(selectedInterval);
-        correctAnswerTotal++;
-        timeLeft++;
-        correctAnswer();
-    }
-    else {
-        clearInterval(selectedInterval);
-        incorrectAnswerTotal++;
-        timeLeft++;
-        incorrectAnswer;
-    }
-})*/
-//9. ???????
+
+//9. Listeners
 $('.start-button').on('click', function() {
     $(this).hide();
     randomQuestion();
